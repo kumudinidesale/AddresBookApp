@@ -1,6 +1,13 @@
 package com.example.addressbook.model;
 
-public class AddressBookContact {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class AddressBook {
+    @Id
+    @GeneratedValue
     private Integer id;
     private String firstName;
     private String lastName;
@@ -10,17 +17,32 @@ public class AddressBookContact {
     private String state;
     private Integer zip;
 
-
-    public void AddressBook(Integer id, String firstName, String lastName, String address,
-                            String phoneNumber, String city, String state, Integer zip) {
+     public AddressBook() {
+        super();
+    }
+// Constructor for post address method
+    public AddressBook(AddressBook addressBook) {
+        super();
+        this.firstName = addressBook.firstName;
+        this.lastName = addressBook.lastName;
+        this.address = addressBook.address;
+        this.phoneNumber = addressBook.phoneNumber;
+        this.city = addressBook.city;
+        this.state = addressBook.state;
+        this.zip = addressBook.zip;
+    }
+    // Constructor for update by id method
+    public AddressBook(AddressBook addressBook, Integer id)  {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
+        this.firstName = addressBook.firstName;
+        this.lastName = addressBook.lastName;
+        this.address = addressBook.address;
+        this.phoneNumber = addressBook.phoneNumber;
+        this.city = addressBook.city;
+        this.state = addressBook.state;
+        this.zip = addressBook.zip;
+
+
     }
 
     public Integer getId() {
