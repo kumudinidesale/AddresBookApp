@@ -1,18 +1,22 @@
 package com.example.addressbook.controller;
 
+import com.example.addressbook.dto.AddressBookDTO;
+import com.example.addressbook.dto.ResponseDTO;
 import com.example.addressbook.model.AddressBook;
-import com.example.addressbook.repository.AddressBookRepository;
+import com.example.addressbook.service.AddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/AddressBookApp")
 public class AddressBookController {
-    @Autowired
-    AddressBookRepository repository;
+    @Autowired  //Autowired AddressBookService so we can inject its dependency here
+    AddressBookService service;
 
     //Print welcome message
 
@@ -21,50 +25,48 @@ public class AddressBookController {
         return "Welcome to addressBook App";
     }
 
+    @GetMapping("/get")
+    public ResponseEntity<String> getAllData() {
+        List<AddressBook> listOfContacts = service.getListOfAddresses();
+        ResponseDTO response = new ResponseDTO("Addresbook :", listOfContacts);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
 
      // Create api call to save data to repository
 
     @PostMapping("/post")
-    public AddressBook postAddress(@RequestBody AddressBook addressBook) {
-        AddressBook newAddressBook = new AddressBook(addressBook);
-        repository.save(newAddressBook);
-        return newAddressBook;
+    public ResponseEntity<ResponseDTO> postData(@RequestBody AddressBookDTO addressBookDTO) {
+        AddressBook newContact = service.saveAddress(addressBookDTO);
+        ResponseDTO response = new ResponseDTO("New Contact Added in Addressbook : ", newContact);
+        return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
     }
 
 
-     // Get all data to repository
-
-    @GetMapping("/get")
-    public List<AddressBook> getAddress() {
-        List<AddressBook> addressBook = repository.findAll();
-        return addressBook;
-    }
-
-
-      //To get data by id to repository
+    //  Ability to get person data by id
 
     @GetMapping("/get/{id}")
-    public AddressBook getAddressById(@PathVariable Integer id) {
-        Optional<AddressBook> addressBook = repository.findById(id);
-        return addressBook.get();
+    public ResponseEntity<AddressBook> getAddressById(@PathVariable Integer id) {
+        ResponseDTO response = new ResponseDTO("Addressbook of given id: ", service.getAddressbyId(id));
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
 
-     // Update  data in the repository by id
+     // Ability to update address book person data for particular id
 
     @PutMapping("/update/{id}")
-    public AddressBook updateById(@PathVariable Integer id, @RequestBody AddressBook addressBook) {
-        AddressBook newAddressBook = new AddressBook(addressBook, id);
-        repository.save(newAddressBook);
-        return newAddressBook;
+    public ResponseEntity<ResponseDTO> updateById(@PathVariable Integer id, @RequestBody AddressBookDTO addressBookDTO) {
+        AddressBook newContact = service.updateDateById(id, addressBookDTO);
+        ResponseDTO response = new ResponseDTO("Address-book updated : ", newContact);
+        return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
     }
 
 
-     // Delete  data by id in the repository
+     // Ability to delete person data for particular id
 
-    @DeleteMapping ("/delete/{id}")
-    public String deleteAddress(@PathVariable Integer id) {
-        repository.deleteById(id);
-        return "Address of id: " + id + " has been deleted";
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteDataById(@PathVariable Integer id) {
+        service.deleteContact(id);
+        return new ResponseEntity<String>("Contact deleted succesfully", HttpStatus.OK);
     }
 }

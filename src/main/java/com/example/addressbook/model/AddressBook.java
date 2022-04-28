@@ -1,5 +1,8 @@
 package com.example.addressbook.model;
 
+import com.example.addressbook.dto.AddressBookDTO;
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,6 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="AddressBook_table")
+
 public class AddressBook {
     @Id
     @GeneratedValue
@@ -26,30 +30,32 @@ public class AddressBook {
     }
 // Created constructor for post address method
 
-    public AddressBook(AddressBook addressBook) {
+    public AddressBook(AddressBookDTO addressBookDTO) {
         super();
-        this.firstName = addressBook.firstName;
-        this.lastName = addressBook.lastName;
-        this.address = addressBook.address;
-        this.phoneNumber = addressBook.phoneNumber;
-        this.city = addressBook.city;
-        this.state = addressBook.state;
-        this.zip = addressBook.zip;
+        this.firstName = addressBookDTO.getFirstName();
+        this.lastName = addressBookDTO.getLastName();
+        this.address = addressBookDTO.getAddress();
+        this.phoneNumber = addressBookDTO.getPhoneNumber();
+        this.city = addressBookDTO.getCity();
+        this.state = addressBookDTO.getState();
+        this.zip = addressBookDTO.getZip();
     }
 
     //Created constructor for update by id method
-    public AddressBook(AddressBook addressBook, Integer id) {
+    public AddressBook(Integer id, AddressBookDTO addressBookDTO) {
         this.id = id;
-        this.firstName = addressBook.firstName;
-        this.lastName = addressBook.lastName;
-        this.address = addressBook.address;
-        this.phoneNumber = addressBook.phoneNumber;
-        this.city = addressBook.city;
-        this.state = addressBook.state;
-        this.zip = addressBook.zip;
+        this.firstName = addressBookDTO.getFirstName();
+        this.lastName = addressBookDTO.getLastName();
+        this.address = addressBookDTO.getAddress();
+        this.phoneNumber = addressBookDTO.getPhoneNumber();
+        this.city = addressBookDTO.getCity();
+        this.state = addressBookDTO.getState();
+        this.zip = addressBookDTO.getZip();
 
 
     }
+
+
 
     public Integer getId() {
         return id;
