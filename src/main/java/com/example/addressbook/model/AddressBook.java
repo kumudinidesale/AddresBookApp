@@ -3,12 +3,15 @@ package com.example.addressbook.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="AddressBook_table")
 public class AddressBook {
     @Id
     @GeneratedValue
     private Integer id;
+
     private String firstName;
     private String lastName;
     private String address;
@@ -17,10 +20,12 @@ public class AddressBook {
     private String state;
     private Integer zip;
 
-     public AddressBook() {
+
+    public AddressBook() {
         super();
     }
-// Constructor for post address method
+// Created constructor for post address method
+
     public AddressBook(AddressBook addressBook) {
         super();
         this.firstName = addressBook.firstName;
@@ -31,8 +36,9 @@ public class AddressBook {
         this.state = addressBook.state;
         this.zip = addressBook.zip;
     }
-    // Constructor for update by id method
-    public AddressBook(AddressBook addressBook, Integer id)  {
+
+    //Created constructor for update by id method
+    public AddressBook(AddressBook addressBook, Integer id) {
         this.id = id;
         this.firstName = addressBook.firstName;
         this.lastName = addressBook.lastName;
@@ -69,11 +75,11 @@ public class AddressBook {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
+    public String getAddress() {
         return address;
     }
 
-    public void setEmail(String email) {
+    public void setAddress(String email) {
         this.address = email;
     }
 
