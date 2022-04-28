@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AddressBookService {
+public class AddressBookService implements IAddressBookService  {
     //Autowired repository class to inject its dependency
     @Autowired
     AddressBookRepository repository;
@@ -21,6 +21,8 @@ public class AddressBookService {
         return addressBooks;
     }
 
+
+
     //Created service method which serves controller api to post data
     public AddressBook saveAddress(AddressBookDTO addressBookDTO) {
         AddressBook addressBook = new AddressBook(addressBookDTO);
@@ -29,9 +31,9 @@ public class AddressBookService {
     }
 
     //Created service method which serves controller api to get record by id
-    public AddressBook getAddressbyId(Integer id) {
+    public Optional<AddressBook> getDataById(Integer id) {
         Optional<AddressBook> addressBook = repository.findById(id);
-        return addressBook.get();
+        return addressBook;
     }
 
     //Created service method which serves controller api to update record by id
