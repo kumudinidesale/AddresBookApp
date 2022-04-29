@@ -2,16 +2,19 @@ package com.example.addressbook.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import javax.validation.constraints.Pattern;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+
 @Data
 @AllArgsConstructor
 public class AddressBookDTO {
 
-    @Pattern(regexp="^[A-Z]{1}[a-zA-Z]{2,}$",message="Employee firstName is Invalid")
+    @Pattern(regexp="^[A-Z]{1}[a-zA-Z\\s]{2,}$",message="Employee firstName is Invalid")
     private String firstName;
-    @Pattern(regexp="^[A-Z]{1}[a-zA-Z]{2,}$",message="Employee lastName is Invalid")
+    @Pattern(regexp="^[A-Z]{1}[a-zA-Z\\s]{2,}$",message="Employee lastName is Invalid")
     private String lastName;
     @NotEmpty(message="address not  null")
     private String address;
@@ -21,8 +24,8 @@ public class AddressBookDTO {
     private String city;
     @NotEmpty(message="state not  null")
     private String state;
-    @NotEmpty(message="zip not  null")
-    private Integer zip;
+    @NotNull(message="zip not  null")
+    private int zip;
     public AddressBookDTO() {
         super();
     }

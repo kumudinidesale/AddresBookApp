@@ -23,7 +23,7 @@ public class AddressBook {
     private String phoneNumber;
     private String city;
     private String state;
-    private Integer zip;
+    private int zip;
 
 
     public AddressBook() {
