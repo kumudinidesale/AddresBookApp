@@ -17,4 +17,6 @@ public interface  IAddressBookService {
     public AddressBook updateDateById(Integer id, AddressBookDTO addressBookDTO);
 
     public void deleteContact(Integer id);
+
+    Object getAddressbyId(Integer id);
 }

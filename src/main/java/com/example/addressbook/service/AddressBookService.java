@@ -47,4 +47,8 @@ public class AddressBookService implements IAddressBookService  {
     public void deleteContact(Integer id) {
         repository.deleteById(id);
     }
+    @Override
+    public Object getAddressbyId(Integer id) {
+        return null;
+    }
 }
